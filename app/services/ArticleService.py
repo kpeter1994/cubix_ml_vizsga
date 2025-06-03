@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlparse
 from app.db.database import SessionLocal
 import app.models as models
+from bs4 import BeautifulSoup
 
 
 class ArticleService:
@@ -12,13 +13,13 @@ class ArticleService:
 
     def get_category(self, entry):
         category = None
-        if "tags" in entry and entry.tags:
-            category = entry.tags[0].term
-
         parsed_url = urlparse(entry.link)
         path_parts = parsed_url.path.strip("/").split("/")
         if path_parts:
             category = path_parts[0]
+
+        if "tags" in entry and entry.tags:
+            category = entry.tags[0].term
         return category
 
     def parse(self):
@@ -30,7 +31,7 @@ class ArticleService:
             articles.append({
                 "title": entry.title,
                 "link": entry.link,
-                "summary": entry.get("summary", ""),
+                "summary": BeautifulSoup(str(entry.get("summary", "")), 'html.parser').get_text(),
                 "category": self.get_category(entry),
                 "published": datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
                 if entry.get("published_parsed") else datetime.now(timezone.utc),

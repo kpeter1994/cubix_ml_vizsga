@@ -9,3 +9,24 @@ services:
       - "8090:8081"
     environment:
       - REDIS_HOSTS=local:redis:6379
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3390:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: collector_db
+      MYSQL_USER: smitpeter777
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mysql_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+
+volumes:
+  mysql_data:

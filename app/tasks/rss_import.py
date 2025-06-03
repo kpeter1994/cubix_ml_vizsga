@@ -23,5 +23,4 @@ def process_feed():
         article_service.create_articles()
 
 
-
 process_feed()
