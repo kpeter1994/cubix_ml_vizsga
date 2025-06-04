@@ -18,7 +18,7 @@ Setup
     python -m pip install setuptools
     pip install -r requirements.txt
 
-Futattás
+Futtatás
 
     uvicorn books:app --reload --port 8000
 
@@ -28,8 +28,8 @@ Futattás
 
     celery -A celery_app beat --loglevel=info
 
-A projekt célja egy hírgyüjtő lakalmazáshoz készíteni egy algoritmust, amki képes a hír címéből és a leírásből megállapítani a hír kategoriáját.
+A projekt célja egy hírgyűjtő alkalmazáshoz készíteni egy algoritmust, ami képes a hír címéből és a leírásból megállapítani a hír kategóriáját.
 
-A hírgyüjtő alakalamzás RRS feedek segítségével gyüjti a híreket, de a hírek kategorizálása nem egységes. Azt a probémát hívaott megoldani a kategrizáló program.
+A hírgyűjtő alkalmazás RSS feedek segítségével gyűjti a híreket, de a hírek kategorizálása nem egységes. Azt a problémát hivatott megoldani a kategorizáló program.
 
-A model tanításához egy kb 26 000 sorból álló összegyűjtött adatbázist használok, de a cél, hogy mlops segítségével folyamatosan firssüljön az algoritmus, így több adattal egyre jobb minőságű prediktert tudunk készíteni.
+A modell tanításához egy kb 26 000 sorból álló összegyűjtött adatbázist használok, de a cél, hogy mlops segítségével folyamatosan frissüljön az algoritmus, így több adattal egyre jobb minőségű prediktort tudunk készíteni.
