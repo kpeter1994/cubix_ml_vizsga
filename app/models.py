@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Float
 from app.db.database import Base
 
 class Articles(Base):
@@ -11,3 +11,10 @@ class Articles(Base):
     category = Column(String(515))
     predicted_category = Column(String(100), nullable=True)
     published = Column(DateTime)
+
+class Training(Base):
+    __tablename__ = "training"
+    id = Column(Integer, primary_key=True)
+    model_name = Column(String(100))
+    training_date = Column(DateTime)
+    accuracy = Column(Float)
