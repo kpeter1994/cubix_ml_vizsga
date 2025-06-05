@@ -1,3 +1,4 @@
+from app.services.PredictorService import PredictorService
 from celery_app import app
 from app.services.ArticleService import ArticleService
 
@@ -26,3 +27,8 @@ def process_feed():
         article_service.create_articles()
 
 
+@app.task(name='tasks.process_train')
+def process_train():
+    predictor_service = PredictorService()
+    predictor_service.lemmatize_data_to_db()
+    predictor_service.train_neural_network()

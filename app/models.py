@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean
 from app.db.database import Base
 
 class Articles(Base):
@@ -18,3 +18,4 @@ class Training(Base):
     model_name = Column(String(100))
     training_date = Column(DateTime)
     accuracy = Column(Float)
+    active = Column(Boolean, default=0)

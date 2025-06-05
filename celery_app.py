@@ -12,6 +12,10 @@ app = Celery(
 app.conf.beat_schedule = {
     'run-every-5-minutes': {
         'task': 'tasks.process_feed',       # a feladat neve, amit a tasks.py-ban definiálsz
+        'schedule': crontab(minute='*/10'),   # 5 percenként
+    },
+    'run-every-week': {
+        'task': 'tasks.process_train',       # a feladat neve, amit a tasks.py-ban definiálsz
         'schedule': crontab(minute='*/1'),   # 5 percenként
     },
 }
