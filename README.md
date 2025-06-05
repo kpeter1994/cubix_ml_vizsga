@@ -10,6 +10,8 @@ A hírgyűjtő alkalmazás RSS feedek segítségével gyűjti a híreket, de a h
 
 A modell tanításához egy kb 26 000 sorból álló összegyűjtött adatbázist használok, de a cél, hogy mlops segítségével folyamatosan frissüljön az algoritmus, így több adattal egyre jobb minőségű prediktort tudunk készíteni.
 
+Sajnos a rendes docker-compose fálal egy ponton elakdatam, amit később majd orvoslok így csak a compose.dev file-al lehet tesztelni.
+
 ## main.py
 
 Ez a fájl egy FastAPI alkalmazást definiál: inicializálja a PredictorService-t és ArticleService-t, majd két végpontot hoz létre. A GET / lekérdezi az adatbázisból a legutóbbi 100 cikket, rendezve megjelenési idő szerint, a POST / pedig a bejövő Pydantic-modell alapján létrehoz egy új cikket az adatbázisban (internálisan meghívva az ArticleService.create_article-t, ahol opcionálisan prediktorral számolja a kategóriát).

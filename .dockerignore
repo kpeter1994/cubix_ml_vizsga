@@ -1,3 +1,7 @@
 .venv
 ml
 README.md
+
+app/artifacts/category_predicter.keras
+app/artifacts/vectorizer.pkl
+app/artifacts/label_encoder.pkl

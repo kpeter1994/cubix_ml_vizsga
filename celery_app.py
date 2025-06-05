@@ -15,11 +15,11 @@ app = Celery(
 app.conf.beat_schedule = {
     'run-every-5-minutes': {
         'task': 'tasks.process_feed',
-        'schedule': crontab(minute='*/5'),
+        'schedule': crontab(minute='*/1'),
     },
     'run-every-week': {
         'task': 'tasks.process_train',
-        'schedule': crontab(day_of_week='monday', hour=0, minute=0),
+        'schedule': crontab(minute='*/1'),
     },
 }
 app.conf.timezone = 'Europe/Budapest'
