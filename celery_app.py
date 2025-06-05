@@ -1,11 +1,14 @@
 from celery import Celery
 from celery.schedules import crontab
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 app = Celery(
     'tasks',
-    broker="redis://localhost:6390",
-    backend="redis://localhost:6390",
+    broker=os.getenv("REDIS_ROUTER"),
+    backend=os.getenv("REDIS_ROUTER"),
     include=['app.tasks.tasks']
 )
 
