@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from app.db.database import SessionLocal
 import app.models as models
 from bs4 import BeautifulSoup
@@ -20,6 +21,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.models import load_model
 
+ARTIFACTS_DIR = Path(__file__).resolve().parent.parent / "artifacts"
 
 class PredictorService :
 
@@ -210,17 +212,18 @@ class PredictorService :
                 )
                 db.add(training)
                 db.commit()
-                model.save("../artifacts/category_predicter.keras")
-                with open("../artifacts/vectorizer.pkl", "wb") as f:
+                ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+                model.save(ARTIFACTS_DIR / "category_predicter.keras")
+                with open(ARTIFACTS_DIR / "vectorizer.pkl", "wb") as f:
                     pickle.dump(vectorizer, f)
-                with open("../artifacts/label_encoder.pkl", "wb") as f:
+                with open(ARTIFACTS_DIR / "label_encoder.pkl", "wb") as f:
                     pickle.dump(le, f)
 
     def predict(self, text: str, leman: str = None):
-        model = load_model("../artifacts/category_predicter.keras")
-        with open("../artifacts/vectorizer.pkl", "rb") as f:
+        model = load_model(ARTIFACTS_DIR / "category_predicter.keras")
+        with open(ARTIFACTS_DIR / "vectorizer.pkl", "rb") as f:
             vectorizer = pickle.load(f)
-        with open("../artifacts/label_encoder.pkl", "rb") as f:
+        with open(ARTIFACTS_DIR / "label_encoder.pkl", "rb") as f:
             le = pickle.load(f)
         if leman is None:
             leman = self.lemmatize_text(text)
@@ -232,9 +235,6 @@ class PredictorService :
         return category
 
 
-article_srvice = PredictorService ()
-
-article_srvice.train_neural_network()
 
 
 

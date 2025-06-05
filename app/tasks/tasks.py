@@ -22,8 +22,10 @@ def process_feed():
         "https://www.borsonline.hu/rss"
     ]
 
+    predictor_service = PredictorService()
+
     for url in feed_urls:
-        article_service = ArticleService(url)
+        article_service = ArticleService(url, predictor_service)
         article_service.create_articles()
 
 

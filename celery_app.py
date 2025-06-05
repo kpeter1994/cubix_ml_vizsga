@@ -11,12 +11,12 @@ app = Celery(
 
 app.conf.beat_schedule = {
     'run-every-5-minutes': {
-        'task': 'tasks.process_feed',       # a feladat neve, amit a tasks.py-ban definiálsz
-        'schedule': crontab(minute='*/10'),   # 5 percenként
+        'task': 'tasks.process_feed',
+        'schedule': crontab(minute='*/5'),
     },
     'run-every-week': {
-        'task': 'tasks.process_train',       # a feladat neve, amit a tasks.py-ban definiálsz
-        'schedule': crontab(minute='*/1'),   # 5 percenként
+        'task': 'tasks.process_train',
+        'schedule': crontab(day_of_week='monday', hour=0, minute=0),
     },
 }
-app.conf.timezone = 'Europe/Budapest'           # időzóna beállítás (opcionális, de jó gyakorlat)
+app.conf.timezone = 'Europe/Budapest'
